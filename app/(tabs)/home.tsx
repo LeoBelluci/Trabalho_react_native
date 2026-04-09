@@ -32,7 +32,6 @@ const renderizarEvento = ({ item }: RenderizarEventoProps) => (
 export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
-      {/* Cabeçalho */}
       <View style={styles.header}>
         <Text style={styles.headerTitulo}>Descubra Eventos</Text>
         <TextInput 
@@ -42,7 +41,6 @@ export default function HomeScreen() {
         />
       </View>
 
-      {/* Lista de Eventos */}
       <FlatList
         data={DADOS_EVENTOS} // O array de dados
         keyExtractor={(item) => item.id} // Como o React identifica cada item unicamente
