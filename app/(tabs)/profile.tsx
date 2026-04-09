@@ -11,27 +11,52 @@ export default function ProfileScreen() {
     
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.card}>
-                <Image 
-                    source={{
-                        uri: "https://avatars.githubusercontent.com/u/106830297?v=4"
-                    }}
-                    style={styles.profileImage}
-                />
 
-                <Text style={styles.textName}>João Grande</Text>
+            <View style={styles.row}>
 
-                <Text style={styles.textBio}>
-                    Eu gosto de react native
-                </Text>
+                {/* Perfil 1 */}
+                <View style={styles.card}>
+                    <Image 
+                        source={{
+                            uri: "https://avatars.githubusercontent.com/u/23381292?s=400"
+                        }}
+                        style={styles.profileImage}
+                    />
 
-                <TouchableOpacity 
-                    style={styles.botaoSair}
-                    onPress={onSairPress}
-                >
-                    <Text>Sair</Text>
-                </TouchableOpacity>
+                    <Text style={styles.textName}>Leonardo</Text>
+
+                    <Text style={styles.textBio}>
+                       Desenvolvedor de software com experiência em React Native e Node.js.
+                    </Text>
+                </View>
+
+               
+                <View style={styles.card}>
+                    <Image 
+                        source={{
+                            uri: "https://avatars.githubusercontent.com/u/177074274?v=4"
+                        }}  
+                        style={styles.profileImage}
+                    />
+
+                    <Text style={styles.textName}>Bruno</Text>
+
+                    <Text style={styles.textBio}>
+                        Desenvolvedor de software e entusiasta de tecnologia. 
+                    </Text>
+                </View>
+
             </View>
+
+            <TouchableOpacity 
+                style={styles.botaoSair}
+                onPress={onSairPress}
+            >
+                <Text style={{ color: "#fff", fontWeight: "bold" }}>
+                    Sair
+                </Text>
+            </TouchableOpacity>
+
         </SafeAreaView>
     );
 }
@@ -44,46 +69,55 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 20
     },
+
+    row: {
+        flexDirection: "row",
+        gap: 15
+    },
+
     botaoSair: {
-        marginTop: 20,
+        marginTop: 30,
         backgroundColor: "#FF5A5F",
         paddingVertical: 12,
         paddingHorizontal: 30,
         borderRadius: 25,
         alignItems: "center"
     },
+
     profileImage: {
         width: 120,
         height: 120,
         borderRadius: 60,
         marginBottom: 10
     },
+
     card: {
         backgroundColor: "#FFFFFF",
-        padding: 30,
+        padding: 20,
         borderRadius: 15,
         alignItems: "center",
 
-        //Sombras
+        // Sombras
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
         elevation: 5,
 
-        width: "100%",
-        maxWidth: 250
+        width: 160
     },
+
     textName: {
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: "bold",
         color: "#333",
         marginBottom: 10
     },
+
     textBio: {
-        fontSize: 16,
+        fontSize: 14,
         textAlign: "center",
         color: "#666",
-        lineHeight: 22
+        lineHeight: 20
     }
 });
