@@ -11,7 +11,6 @@ export default function TabLayout() {
       }}
     >
 
-      {/* HOME */}
       <Tabs.Screen
         name="home"
         options={{
@@ -22,7 +21,6 @@ export default function TabLayout() {
         }}
       />
 
-      {/* PERFIL */}
       <Tabs.Screen
         name="profile"
         options={{
@@ -33,7 +31,6 @@ export default function TabLayout() {
         }}
       />
 
-      {/* CARRINHO */}
       <Tabs.Screen
         name="cart"
         options={{
@@ -44,9 +41,8 @@ export default function TabLayout() {
         }}
       />
 
-      {/* BILHETES */}
       <Tabs.Screen
-        name="ticket"
+        name="tickets" // ⚠️ TEM QUE BATER COM O ARQUIVO
         options={{
           title: "Bilhetes",
           tabBarIcon: ({ color }) => (

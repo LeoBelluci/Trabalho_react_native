@@ -6,26 +6,43 @@ import {
   Image
 } from "react-native";
 
-import { DADOS_EVENTOS } from "../../mocks/event";
+import { useCart } from "../../contexts/CartContext";
 
 export default function Tickets() {
+
+  const { tickets } = useCart();
+
+  function gerarCodigo() {
+    return "TKT-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+  }
+
   return (
     <View style={styles.container}>
+
       <Text style={styles.title}>
-        Meus Bilhetes ({DADOS_EVENTOS.length})
+        Meus Bilhetes ({tickets.length})
       </Text>
 
       <FlatList
-        data={DADOS_EVENTOS}
-        keyExtractor={(item) => item.id.toString()}
+        data={tickets}
+        keyExtractor={(item, index) => item.id + index}
+
+        ListEmptyComponent={
+          <Text style={{ textAlign: "center", marginTop: 20 }}>
+            Nenhum bilhete comprado 🎟️
+          </Text>
+        }
+
         renderItem={({ item }) => (
           <View style={styles.card}>
+
             <Image
               source={{ uri: item.imagem }}
               style={styles.image}
             />
 
-            <View>
+            <View style={{ flex: 1 }}>
+
               <Text style={styles.name}>
                 {item.titulo}
               </Text>
@@ -39,20 +56,25 @@ export default function Tickets() {
               </Text>
 
               <Text style={styles.code}>
-                Código: TKT-2026-A1B2
+                Código: {gerarCodigo()}
               </Text>
+
             </View>
+
           </View>
         )}
       />
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
-    padding: 16
+    padding: 16,
+    backgroundColor: "#F5F5F5"
   },
 
   title: {
@@ -62,16 +84,17 @@ const styles = StyleSheet.create({
 
   card: {
     flexDirection: "row",
-    marginTop: 15,
     backgroundColor: "#fff",
     padding: 10,
-    borderRadius: 10
+    borderRadius: 10,
+    marginTop: 10
   },
 
   image: {
     width: 80,
     height: 80,
-    marginRight: 10
+    marginRight: 10,
+    borderRadius: 8
   },
 
   name: {
@@ -80,6 +103,8 @@ const styles = StyleSheet.create({
 
   code: {
     marginTop: 5,
-    color: "green"
+    color: "green",
+    fontWeight: "bold"
   }
+
 });

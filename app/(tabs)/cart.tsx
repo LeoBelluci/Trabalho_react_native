@@ -1,3 +1,4 @@
+
 import {
   View,
   Text,
@@ -9,18 +10,32 @@ import {
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { useCart } from "../../contexts/CartContext";
+import { useRouter } from "expo-router";
 
 export default function Cart() {
 
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, finalizarCompra } = useCart();
+  const router = useRouter();
 
-  // 🔥 calcular total corretamente (string → número)
+  // 🔥 calcular total corretamente (string → número seguro)
   const total = cart.reduce((soma, item) => {
     const valor = Number(
-      item.preco.replace("R$", "").replace(",", ".")
+      item.preco
+        .replace("R$", "")
+        .replace(".", "")
+        .replace(",", ".")
     );
-    return soma + valor;
+    return soma + (isNaN(valor) ? 0 : valor);
   }, 0);
+
+  function handleFinalizar() {
+    if (cart.length === 0) return;
+
+    finalizarCompra();
+
+    // 👉 navega para bilhetes após compra
+    router.push("/(tabs)/tickets");
+  }
 
   return (
     <View style={styles.container}>
@@ -31,11 +46,11 @@ export default function Cart() {
 
       <FlatList
         data={cart}
-        keyExtractor={(item, index) => item.id + index} // evita erro de chave duplicada
+        keyExtractor={(item, index) => item.id + index}
         showsVerticalScrollIndicator={false}
 
         ListEmptyComponent={
-          <Text style={{ textAlign: "center", marginTop: 20 }}>
+          <Text style={styles.empty}>
             Seu carrinho está vazio 🛒
           </Text>
         }
@@ -68,7 +83,6 @@ export default function Cart() {
 
             </View>
 
-            {/* BOTÃO REMOVER FUNCIONAL */}
             <TouchableOpacity onPress={() => removeFromCart(item.id)}>
               <MaterialIcons
                 name="delete"
@@ -85,7 +99,15 @@ export default function Cart() {
         Total: R$ {total.toFixed(2)}
       </Text>
 
-      <TouchableOpacity style={styles.button}>
+      {/* BOTÃO FINALIZAR */}
+      <TouchableOpacity
+        style={[
+          styles.button,
+          cart.length === 0 && { backgroundColor: "#ccc" }
+        ]}
+        onPress={handleFinalizar}
+        disabled={cart.length === 0}
+      >
         <Text style={styles.buttonText}>
           Finalizar Compra
         </Text>
@@ -107,6 +129,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 10
+  },
+
+  empty: {
+    textAlign: "center",
+    marginTop: 20,
+    color: "#666"
   },
 
   card: {
