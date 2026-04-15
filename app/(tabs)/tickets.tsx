@@ -3,7 +3,10 @@ import {
   Text,
   StyleSheet,
   FlatList,
-  Image
+  Image,
+  StatusBar,
+  Platform,
+  SafeAreaView
 } from "react-native";
 
 import { useCart } from "../../contexts/CartContext";
@@ -17,55 +20,62 @@ export default function Tickets() {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+      }}
+    >
+      <View style={styles.container}>
 
-      <Text style={styles.title}>
-        Meus Bilhetes ({tickets.length})
-      </Text>
+        <Text style={styles.title}>
+          Meus Bilhetes ({tickets.length})
+        </Text>
 
-      <FlatList
-        data={tickets}
-        keyExtractor={(item, index) => item.id + index}
+        <FlatList
+          data={tickets}
+          keyExtractor={(item, index) => item.id + index}
 
-        ListEmptyComponent={
-          <Text style={{ textAlign: "center", marginTop: 20 }}>
-            Nenhum bilhete comprado 🎟️
-          </Text>
-        }
+          ListEmptyComponent={
+            <Text style={{ textAlign: "center", marginTop: 20 }}>
+              Nenhum bilhete comprado 🎟️
+            </Text>
+          }
 
-        renderItem={({ item }) => (
-          <View style={styles.card}>
+          renderItem={({ item }) => (
+            <View style={styles.card}>
 
-            <Image
-              source={{ uri: item.imagem }}
-              style={styles.image}
-            />
+              <Image
+                source={{ uri: item.imagem }}
+                style={styles.image}
+              />
 
-            <View style={{ flex: 1 }}>
+              <View style={{ flex: 1 }}>
 
-              <Text style={styles.name}>
-                {item.titulo}
-              </Text>
+                <Text style={styles.name}>
+                  {item.titulo}
+                </Text>
 
-              <Text>
-                {item.data}
-              </Text>
+                <Text>
+                  {item.data}
+                </Text>
 
-              <Text>
-                {item.local}
-              </Text>
+                <Text>
+                  {item.local}
+                </Text>
 
-              <Text style={styles.code}>
-                Código: {gerarCodigo()}
-              </Text>
+                <Text style={styles.code}>
+                  Código: {gerarCodigo()}
+                </Text>
+
+              </View>
 
             </View>
+          )}
+        />
 
-          </View>
-        )}
-      />
-
-    </View>
+      </View>
+    </SafeAreaView>
   );
 }
 

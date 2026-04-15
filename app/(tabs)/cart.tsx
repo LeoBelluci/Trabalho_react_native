@@ -5,12 +5,15 @@ import {
   StyleSheet,
   FlatList,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform,
+  StatusBar
 } from "react-native";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { useCart } from "../../contexts/CartContext";
 import { useRouter } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Cart() {
 
@@ -38,82 +41,89 @@ export default function Cart() {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+      }}
+    >
+      <View style={styles.container}>
 
-      <Text style={styles.title}>
-        Meu Carrinho ({cart.length} itens)
-      </Text>
+        <Text style={styles.title}>
+          Meu Carrinho ({cart.length} itens)
+        </Text>
 
-      <FlatList
-        data={cart}
-        keyExtractor={(item, index) => item.id + index}
-        showsVerticalScrollIndicator={false}
+        <FlatList
+          data={cart}
+          keyExtractor={(item, index) => item.id + index}
+          showsVerticalScrollIndicator={false}
 
-        ListEmptyComponent={
-          <Text style={styles.empty}>
-            Seu carrinho está vazio 🛒
-          </Text>
-        }
+          ListEmptyComponent={
+            <Text style={styles.empty}>
+              Seu carrinho está vazio 🛒
+            </Text>
+          }
 
-        renderItem={({ item }) => (
-          <View style={styles.card}>
+          renderItem={({ item }) => (
+            <View style={styles.card}>
 
-            <Image
-              source={{ uri: item.imagem }}
-              style={styles.image}
-            />
+              <Image
+                source={{ uri: item.imagem }}
+                style={styles.image}
+              />
 
-            <View style={{ flex: 1 }}>
+              <View style={{ flex: 1 }}>
 
-              <Text style={styles.name}>
-                {item.titulo}
-              </Text>
+                <Text style={styles.name}>
+                  {item.titulo}
+                </Text>
 
-              <Text style={styles.info}>
-                📅 {item.data}
-              </Text>
+                <Text style={styles.info}>
+                  📅 {item.data}
+                </Text>
 
-              <Text style={styles.info}>
-                📍 {item.local}
-              </Text>
+                <Text style={styles.info}>
+                  📍 {item.local}
+                </Text>
 
-              <Text style={styles.price}>
-                {item.preco}
-              </Text>
+                <Text style={styles.price}>
+                  {item.preco}
+                </Text>
+
+              </View>
+
+              <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                <MaterialIcons
+                  name="delete"
+                  size={24}
+                  color="red"
+                />
+              </TouchableOpacity>
 
             </View>
+          )}
+        />
 
-            <TouchableOpacity onPress={() => removeFromCart(item.id)}>
-              <MaterialIcons
-                name="delete"
-                size={24}
-                color="red"
-              />
-            </TouchableOpacity>
-
-          </View>
-        )}
-      />
-
-      <Text style={styles.total}>
-        Total: R$ {total.toFixed(2)}
-      </Text>
-
-      {/* BOTÃO FINALIZAR */}
-      <TouchableOpacity
-        style={[
-          styles.button,
-          cart.length === 0 && { backgroundColor: "#ccc" }
-        ]}
-        onPress={handleFinalizar}
-        disabled={cart.length === 0}
-      >
-        <Text style={styles.buttonText}>
-          Finalizar Compra
+        <Text style={styles.total}>
+          Total: R$ {total.toFixed(2)}
         </Text>
-      </TouchableOpacity>
 
-    </View>
+        {/* BOTÃO FINALIZAR */}
+        <TouchableOpacity
+          style={[
+            styles.button,
+            cart.length === 0 && { backgroundColor: "#ccc" }
+          ]}
+          onPress={handleFinalizar}
+          disabled={cart.length === 0}
+        >
+          <Text style={styles.buttonText}>
+            Finalizar Compra
+          </Text>
+        </TouchableOpacity>
+
+      </View>
+    </SafeAreaView>
   );
 }
 
