@@ -14,7 +14,7 @@ export const DADOS_EVENTOS: Event[] = [
     titulo: 'Dev PR na estrada',
     data: 'Qua, 25 Mar • 19:00',
     local:  'Unipar',
-    preco: 'unialfa',
+    preco: 'R$ 20,00',
     imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZgVZ9GK8tFguyneXVZTt8RKMrk8ozHmyrEw&s',
   },
   {
