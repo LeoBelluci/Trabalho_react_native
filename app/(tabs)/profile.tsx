@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: "#F5F6FA",
+        backgroundColor: "#F8F8F8",
         justifyContent: "center",
         alignItems: "center",
         paddingHorizontal: 20
@@ -102,69 +102,63 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: "row",
         justifyContent: "center",
-        gap: 16,
+        gap: 14,
         width: "100%"
     },
 
     card: {
-        backgroundColor: "#FFFFFF",
-        paddingVertical: 22,
-        paddingHorizontal: 16,
-        borderRadius: 18,
+        backgroundColor: "#FFF",
+        paddingVertical: 20,
+        paddingHorizontal: 14,
+        borderRadius: 20,
         alignItems: "center",
 
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.12,
-        shadowRadius: 10,
-        elevation: 6
+        shadowOpacity: 0.04,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 3 },
+
+        elevation: 2
     },
 
     cardHover: {
-        transform: [{ scale: 1.05 }],
-        elevation: 12
+        transform: [{ scale: 1.03 }]
     },
 
     profileImage: {
-        width: 110,
-        height: 110,
-        borderRadius: 55,
-        marginBottom: 14
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        marginBottom: 12
     },
 
     textName: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: "600",
-        color: "#1F2937",
-        marginBottom: 8
+        color: "#000",
+        marginBottom: 6
     },
 
     textBio: {
-        fontSize: 13.5,
+        fontSize: 13,
         textAlign: "center",
-        color: "#6B7280",
+        color: "#777",
         lineHeight: 18
     },
 
     botaoSair: {
-        marginTop: 40,
-        backgroundColor: "#000000",
+        marginTop: 50,
+        backgroundColor: "#000",
         paddingVertical: 14,
-        paddingHorizontal: 36,
-        borderRadius: 28,
-        alignItems: "center",
-
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.18,
-        shadowRadius: 12,
-        elevation: 8
+        paddingHorizontal: 40,
+        borderRadius: 30,
+        alignItems: "center"
     },
 
     textBotao: {
-        color: "#FFFFFF",
-        fontWeight: "600",
-        fontSize: 16
+        color: "#FFF",
+        fontWeight: "500",
+        fontSize: 15
     }
 
 });

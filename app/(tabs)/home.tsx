@@ -143,9 +143,11 @@ export default function HomeScreen() {
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F4F6F8" },
+  container: {
+    flex: 1,
+    backgroundColor: "#F8F8F8"
+  },
 
   header: {
     flexDirection: "row",
@@ -153,30 +155,57 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 20,
     paddingVertical: 14,
-    backgroundColor: "#FFFFFF"
+    backgroundColor: "#FFF",
+
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#EEE"
   },
 
-  profileButton: { width: 40, height: 40 },
+  profileButton: {
+    width: 36,
+    height: 36
+  },
 
-  profileImage: { width: 40, height: 40, borderRadius: 20 },
+  profileImage: {
+    width: 36,
+    height: 36,
+    borderRadius: 18
+  },
 
-  logoContainer: { alignItems: "center" },
+  logoContainer: {
+    alignItems: "center"
+  },
 
-  logoText: { fontSize: 12, fontWeight: "600" },
+  logoText: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: "#000"
+  },
 
-  searchWrapper: { paddingHorizontal: 20, paddingTop: 15 },
+  searchWrapper: {
+    paddingHorizontal: 20,
+    paddingTop: 14
+  },
 
   inputBuscaContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#FFF",
-    borderRadius: 12,
-    height: 50
+    borderRadius: 14,
+    height: 48,
+    paddingHorizontal: 12,
+
+    shadowColor: "#000",
+    shadowOpacity: 0.04,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2
   },
 
   inputBusca: {
     flex: 1,
-    paddingHorizontal: 10
+    paddingHorizontal: 8,
+    color: "#000"
   },
 
   listaContainer: {
@@ -186,9 +215,15 @@ const styles = StyleSheet.create({
 
   card: {
     backgroundColor: "#FFF",
-    borderRadius: 14,
-    marginBottom: 20,
-    overflow: "hidden"
+    borderRadius: 18,
+    marginBottom: 18,
+    overflow: "hidden",
+
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 3
   },
 
   imagemCapa: {
@@ -201,42 +236,48 @@ const styles = StyleSheet.create({
   },
 
   dataTexto: {
-    color: "#E63946",
-    fontWeight: "700"
+    color: "#888",
+    fontWeight: "500",
+    fontSize: 12
   },
 
   tituloTexto: {
     fontSize: 18,
-    fontWeight: "bold"
+    fontWeight: "600",
+    color: "#000",
+    marginTop: 4
   },
 
   localTexto: {
-    color: "#666"
+    color: "#777",
+    marginTop: 2
   },
 
   rodapeCard: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10
+    marginTop: 12,
+    justifyContent: "space-between"
   },
 
   precoTexto: {
-    fontWeight: "bold"
+    fontWeight: "600",
+    color: "#000"
   },
 
   botaoComprar: {
     backgroundColor: "#000",
-    padding: 10,
-    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 10,
     flexDirection: "row",
-    alignItems: "center",
-    marginLeft: 10
+    alignItems: "center"
   },
 
   textoBotao: {
     color: "#FFF",
-    marginLeft: 5
+    marginLeft: 6,
+    fontSize: 13,
+    fontWeight: "500"
   }
-
 });
-

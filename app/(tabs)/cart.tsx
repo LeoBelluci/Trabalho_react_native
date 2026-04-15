@@ -17,7 +17,7 @@ export default function Cart() {
   const { cart, removeFromCart, finalizarCompra } = useCart();
   const router = useRouter();
 
-  // 🔥 calcular total corretamente (string → número seguro)
+  //  calcula total corretamente (string → número seguro)
   const total = cart.reduce((soma, item) => {
     const valor = Number(
       item.preco
