@@ -7,28 +7,38 @@ import {
   TouchableOpacity
 } from "react-native";
 
-import { DADOS_EVENTOS } from "../../mocks/event";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useCart } from "../../contexts/CartContext";
 
 export default function Cart() {
 
-  // Calcula o total convertendo preco (string) para número
-  const total = DADOS_EVENTOS.reduce(
-    (soma, item) => soma + Number(item.preco),
-    0
-  );
+  const { cart, removeFromCart } = useCart();
+
+  // 🔥 calcular total corretamente (string → número)
+  const total = cart.reduce((soma, item) => {
+    const valor = Number(
+      item.preco.replace("R$", "").replace(",", ".")
+    );
+    return soma + valor;
+  }, 0);
 
   return (
     <View style={styles.container}>
 
       <Text style={styles.title}>
-        Meu Carrinho ({DADOS_EVENTOS.length} itens)
+        Meu Carrinho ({cart.length} itens)
       </Text>
 
       <FlatList
-        data={DADOS_EVENTOS}
-        keyExtractor={(item) => item.id}
+        data={cart}
+        keyExtractor={(item, index) => item.id + index} // evita erro de chave duplicada
         showsVerticalScrollIndicator={false}
+
+        ListEmptyComponent={
+          <Text style={{ textAlign: "center", marginTop: 20 }}>
+            Seu carrinho está vazio 🛒
+          </Text>
+        }
 
         renderItem={({ item }) => (
           <View style={styles.card}>
@@ -53,12 +63,13 @@ export default function Cart() {
               </Text>
 
               <Text style={styles.price}>
-                R$ {item.preco}
+                {item.preco}
               </Text>
 
             </View>
 
-            <TouchableOpacity>
+            {/* BOTÃO REMOVER FUNCIONAL */}
+            <TouchableOpacity onPress={() => removeFromCart(item.id)}>
               <MaterialIcons
                 name="delete"
                 size={24}
@@ -151,3 +162,4 @@ const styles = StyleSheet.create({
   }
 
 });
+

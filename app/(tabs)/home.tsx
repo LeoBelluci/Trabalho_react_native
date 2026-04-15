@@ -1,3 +1,4 @@
+
 import {
   FlatList,
   Image,
@@ -14,7 +15,7 @@ import { DADOS_EVENTOS } from '../../mocks/event';
 import { Event } from '../../types/event';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { useState } from "react";
+import { useCart } from "../../contexts/CartContext";
 
 type RenderizarEventoProps = {
   item: Event;
@@ -24,22 +25,7 @@ export default function HomeScreen() {
 
   const router = useRouter();
 
-  const [eventos, setEventos] = useState(DADOS_EVENTOS);
-
-  // 🔥 remover evento
-  function removerEvento(id: string) {
-    const novaLista = eventos.filter((item) => item.id !== id);
-    setEventos(novaLista);
-  }
-
-  // 🛒 adicionar (simulação)
- function adicionarEvento(evento: Event) {
-  const existe = eventos.find((item) => item.id === evento.id);
-
-  if (existe) return; // não adiciona duplicado
-
-  setEventos((prev) => [...prev, evento]);
-}
+  const { addToCart } = useCart();
 
   const renderizarEvento = ({ item }: RenderizarEventoProps) => {
 
@@ -80,10 +66,10 @@ export default function HomeScreen() {
               {item.preco}
             </Text>
 
-            {/* BOTÃO ADICIONAR */}
+            {/* BOTÃO COMPRAR (AGORA FUNCIONAL) */}
             <TouchableOpacity
               style={styles.botaoComprar}
-              onPress={() => adicionarEvento(item)}
+              onPress={() => addToCart(item)}
             >
               <FontAwesome
                 name="shopping-cart"
@@ -92,16 +78,6 @@ export default function HomeScreen() {
               />
               <Text style={styles.textoBotao}>
                 Comprar
-              </Text>
-            </TouchableOpacity>
-
-            {/* BOTÃO REMOVER */}
-            <TouchableOpacity
-              onPress={() => removerEvento(item.id)}
-              style={{ marginLeft: 10 }}
-            >
-              <Text style={{ color: "red", fontWeight: "bold" }}>
-                Remover
               </Text>
             </TouchableOpacity>
 
@@ -157,7 +133,7 @@ export default function HomeScreen() {
 
       {/* LISTA */}
       <FlatList
-        data={eventos}
+        data={DADOS_EVENTOS}
         keyExtractor={(item) => item.id}
         renderItem={renderizarEvento}
         showsVerticalScrollIndicator={false}
