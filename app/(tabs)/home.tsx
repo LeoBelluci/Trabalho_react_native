@@ -66,7 +66,7 @@ export default function HomeScreen() {
               {item.preco}
             </Text>
 
-            {/* BOTÃO COMPRAR (AGORA FUNCIONAL) */}
+            {/* BOTÃO COMPRAR */}
             <TouchableOpacity
               style={styles.botaoComprar}
               onPress={() => addToCart(item)}
@@ -101,6 +101,7 @@ export default function HomeScreen() {
           style={styles.profileButton}
           onPress={() => router.push("/profile")}
         >
+          
           <Image
             source={{
               uri: "https://avatars.githubusercontent.com/u/23381292?s=400"
@@ -161,6 +162,12 @@ const styles = StyleSheet.create({
     borderBottomColor: "#EEE"
   },
 
+  imageGroup: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10
+  },
+
   profileButton: {
     width: 36,
     height: 36
@@ -169,7 +176,7 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 36,
     height: 36,
-    borderRadius: 18
+    borderRadius: 18,
   },
 
   logoContainer: {

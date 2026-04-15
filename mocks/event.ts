@@ -3,27 +3,43 @@ import { Event } from "../types/event";
 export const DADOS_EVENTOS: Event[] = [
   {
     id: '1',
-    titulo: 'The Developers Life Weekend',
-    data: 'Sáb, 14 Mar • 09:00',
-    local: 'Centro de Convenções - Curitiba, PR',
-    preco: 'R$ 150,00',
-    imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw5drOCJglv1V9G8aCImU84eKAXp3I5MnEbg&s',
+    titulo: 'Rock in Rio 2026',
+    data: 'Sex, 18 Set • 14:00',
+    local: 'Cidade do Rock - Rio de Janeiro, RJ',
+    preco: 'R$ 650,00',
+    imagem: 'https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2'
   },
   {
     id: '2',
-    titulo: 'Dev PR na estrada',
-    data: 'Qua, 25 Mar • 19:00',
-    local:  'Unipar',
-    preco: 'R$ 20,00',
-    imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZgVZ9GK8tFguyneXVZTt8RKMrk8ozHmyrEw&s',
+    titulo: 'Lollapalooza Brasil 2026',
+    data: 'Sáb, 28 Mar • 12:00',
+    local: 'Autódromo de Interlagos - São Paulo, SP',
+    preco: 'R$ 550,00',
+    imagem: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745'
   },
   {
     id: '3',
-    titulo: 'Latinoware 2026',
-    data: 'Sex, 10 Abr • 19:00',
-    local: 'Auditório Principal - Campus',
-    preco: 'R$ 50,00',
-    imagem: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29uZmVyZW5jZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    titulo: 'Campus Party Brasil',
+    data: 'Qui, 05 Fev • 10:00',
+    local: 'Expo Center Norte - São Paulo, SP',
+    preco: 'R$ 120,00',
+    imagem: 'https://images.unsplash.com/photo-1511578314322-379afb476865'
   },
+  {
+    id: '4',
+    titulo: 'Comic Con Experience (CCXP)',
+    data: 'Sex, 04 Dez • 11:00',
+    local: 'São Paulo Expo - São Paulo, SP',
+    preco: 'R$ 300,00',
+    imagem: 'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b'
+  },
+  {
+    id: '5',
+    titulo: 'The Town Festival',
+    data: 'Dom, 10 Set • 15:00',
+    local: 'Autódromo de Interlagos - São Paulo, SP',
+    preco: 'R$ 480,00',
+    imagem: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30'
+  }
 ];
 
