@@ -14,60 +14,112 @@ import { DADOS_EVENTOS } from '../../mocks/event';
 import { Event } from '../../types/event';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useState } from "react";
 
 type RenderizarEventoProps = {
   item: Event;
 };
 
-const renderizarEvento = ({ item }: RenderizarEventoProps) => (
-  <View style={styles.card}>
-    <Image source={{ uri: item.imagem }} style={styles.imagemCapa} />
-
-    <View style={styles.infoContainer}>
-      <Text style={styles.dataTexto}>{item.data}</Text>
-
-      <Text style={styles.tituloTexto} numberOfLines={2}>
-        {item.titulo}
-      </Text>
-
-      <Text style={styles.localTexto}>
-        {item.local}
-      </Text>
-
-      <View style={styles.rodapeCard}>
-        <Text style={styles.precoTexto}>
-          {item.preco}
-        </Text>
-
-        <TouchableOpacity style={styles.botaoComprar}>
-          <FontAwesome
-            name="shopping-cart"
-            size={18}
-            color="#FFF"
-          />
-
-          <Text style={styles.textoBotao}>
-            Comprar
-          </Text>
-        </TouchableOpacity>
-
-      </View>
-    </View>
-  </View>
-);
-
 export default function HomeScreen() {
 
   const router = useRouter();
 
+  const [eventos, setEventos] = useState(DADOS_EVENTOS);
+
+  // 🔥 remover evento
+  function removerEvento(id: string) {
+    const novaLista = eventos.filter((item) => item.id !== id);
+    setEventos(novaLista);
+  }
+
+  // 🛒 adicionar (simulação)
+ function adicionarEvento(evento: Event) {
+  const existe = eventos.find((item) => item.id === evento.id);
+
+  if (existe) return; // não adiciona duplicado
+
+  setEventos((prev) => [...prev, evento]);
+}
+
+  const renderizarEvento = ({ item }: RenderizarEventoProps) => {
+
+    return (
+
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() =>
+          router.push({
+            pathname: "/details",
+            params: { id: item.id }
+          })
+        }
+      >
+
+        <Image
+          source={{ uri: item.imagem }}
+          style={styles.imagemCapa}
+        />
+
+        <View style={styles.infoContainer}>
+
+          <Text style={styles.dataTexto}>
+            {item.data}
+          </Text>
+
+          <Text style={styles.tituloTexto} numberOfLines={2}>
+            {item.titulo}
+          </Text>
+
+          <Text style={styles.localTexto}>
+            {item.local}
+          </Text>
+
+          <View style={styles.rodapeCard}>
+
+            <Text style={styles.precoTexto}>
+              {item.preco}
+            </Text>
+
+            {/* BOTÃO ADICIONAR */}
+            <TouchableOpacity
+              style={styles.botaoComprar}
+              onPress={() => adicionarEvento(item)}
+            >
+              <FontAwesome
+                name="shopping-cart"
+                size={18}
+                color="#FFF"
+              />
+              <Text style={styles.textoBotao}>
+                Comprar
+              </Text>
+            </TouchableOpacity>
+
+            {/* BOTÃO REMOVER */}
+            <TouchableOpacity
+              onPress={() => removerEvento(item.id)}
+              style={{ marginLeft: 10 }}
+            >
+              <Text style={{ color: "red", fontWeight: "bold" }}>
+                Remover
+              </Text>
+            </TouchableOpacity>
+
+          </View>
+
+        </View>
+
+      </TouchableOpacity>
+
+    );
+
+  };
+
   return (
     <SafeAreaView style={styles.container}>
 
-      {/* HEADER MODERNO */}
-
+      {/* HEADER */}
       <View style={styles.header}>
-
-        {/* PERFIL */}
 
         <TouchableOpacity
           style={styles.profileButton}
@@ -81,53 +133,31 @@ export default function HomeScreen() {
           />
         </TouchableOpacity>
 
-        {/* ÍCONE TICKET CENTRAL */}
-
         <View style={styles.logoContainer}>
-          <Ionicons
-            name="ticket-outline"
-            size={36}
-            color="#000"
-          />
+          <Ionicons name="ticket-outline" size={36} color="#000" />
           <Text style={styles.logoText}>
             Ticket App
           </Text>
         </View>
-
-        {/* ESPAÇO DIREITO (FUTURO NOTIFICAÇÃO) */}
 
         <View style={{ width: 40 }} />
 
       </View>
 
       {/* BUSCA */}
-
       <View style={styles.searchWrapper}>
-        <Pressable
-          style={({ pressed }) => [
-            styles.inputBuscaContainer,
-            pressed && styles.inputBuscaHover
-          ]}
-        >
-          <Ionicons
-            name="search"
-            size={18}
-            color="#999"
-            style={{ marginLeft: 10 }}
-          />
-
+        <Pressable style={styles.inputBuscaContainer}>
+          <Ionicons name="search" size={18} color="#999" style={{ marginLeft: 10 }} />
           <TextInput
             style={styles.inputBusca}
-            placeholder="Buscar eventos, shows, cursos..."
-            placeholderTextColor="#999"
+            placeholder="Buscar eventos..."
           />
         </Pressable>
       </View>
 
       {/* LISTA */}
-
       <FlatList
-        data={DADOS_EVENTOS}
+        data={eventos}
         keyExtractor={(item) => item.id}
         renderItem={renderizarEvento}
         showsVerticalScrollIndicator={false}
@@ -139,111 +169,50 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-
-  container: {
-    flex: 1,
-    backgroundColor: "#F4F6F8"
-  },
-
-  /* HEADER */
+  container: { flex: 1, backgroundColor: "#F4F6F8" },
 
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-
     paddingHorizontal: 20,
     paddingVertical: 14,
-
-    backgroundColor: "#FFFFFF",
-
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 4
+    backgroundColor: "#FFFFFF"
   },
 
-  /* PERFIL */
+  profileButton: { width: 40, height: 40 },
 
-  profileButton: {
-    width: 40,
-    height: 40
-  },
+  profileImage: { width: 40, height: 40, borderRadius: 20 },
 
-  profileImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20
-  },
+  logoContainer: { alignItems: "center" },
 
-  /* LOGO */
+  logoText: { fontSize: 12, fontWeight: "600" },
 
-  logoContainer: {
-    alignItems: "center"
-  },
-
-  logoText: {
-    fontSize: 12,
-    fontWeight: "600",
-    color: "#000",
-    marginTop: 2
-  },
-
-  /* BUSCA */
-
-  searchWrapper: {
-    paddingHorizontal: 20,
-    paddingTop: 15
-  },
+  searchWrapper: { paddingHorizontal: 20, paddingTop: 15 },
 
   inputBuscaContainer: {
     flexDirection: "row",
     alignItems: "center",
-
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFF",
     borderRadius: 12,
-    height: 50,
-
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 2
+    height: 50
   },
 
   inputBusca: {
     flex: 1,
-    paddingHorizontal: 10,
-    fontSize: 16,
-    color: "#1c1c1e"
+    paddingHorizontal: 10
   },
-
-  inputBuscaHover: {
-    borderWidth: 1,
-    borderColor: "#000"
-  },
-
-  /* LISTA */
 
   listaContainer: {
     padding: 20,
     paddingBottom: 120
   },
 
-  /* CARD */
-
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFF",
     borderRadius: 14,
     marginBottom: 20,
-    overflow: "hidden",
-
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 4
+    overflow: "hidden"
   },
 
   imagemCapa: {
@@ -257,62 +226,41 @@ const styles = StyleSheet.create({
 
   dataTexto: {
     color: "#E63946",
-    fontWeight: "700",
-    fontSize: 13,
-    marginBottom: 6,
-    textTransform: "uppercase"
+    fontWeight: "700"
   },
 
   tituloTexto: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#111",
-    marginBottom: 6
+    fontWeight: "bold"
   },
 
   localTexto: {
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 14
+    color: "#666"
   },
 
   rodapeCard: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-
-    borderTopWidth: 1,
-    borderTopColor: "#F0F0F0",
-    paddingTop: 14
+    marginTop: 10
   },
 
   precoTexto: {
-    fontSize: 17,
-    fontWeight: "bold",
-    color: "#000"
+    fontWeight: "bold"
   },
 
   botaoComprar: {
     backgroundColor: "#000",
-    paddingVertical: 10,
-    paddingHorizontal: 18,
+    padding: 10,
     borderRadius: 8,
-
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
+    marginLeft: 10
   },
 
   textoBotao: {
     color: "#FFF",
-    fontWeight: "bold",
-    fontSize: 14
+    marginLeft: 5
   }
 
 });
+

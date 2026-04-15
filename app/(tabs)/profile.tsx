@@ -35,7 +35,7 @@ export default function ProfileScreen() {
                 >
                     <Image
                         source={{
-                            uri: "https://avatars.githubusercontent.com/u/23381292?s=400"
+                            uri: "https://avatars.githubusercontent.com/u/23381292?v=4"
                         }}
                         style={styles.profileImage}
                     />
@@ -45,7 +45,7 @@ export default function ProfileScreen() {
                     </Text>
 
                     <Text style={styles.textBio}>
-                        Desenvolvedor de software com experiência em React Native e Node.js.
+                        Desenvolvedor de software com experiência em React Native e Node.js
                     </Text>
 
                 </Pressable>
